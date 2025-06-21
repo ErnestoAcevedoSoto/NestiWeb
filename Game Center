@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NestiGameCenter</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        header {
+            background-color: #003366;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            color: #0066cc;
+            margin: 0;
+        }
+        nav {
+            background-color: #0066cc;
+            padding: 10px;
+            text-align: center;
+        }
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        section {
+            padding: 20px;
+            margin: 10px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #0066cc;
+            border-bottom: 2px solid #0066cc;
+            padding-bottom: 5px;
+        }
+        button {
+            background-color: #0066cc;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #0055aa;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Bienvenido a NestiGameCenter</h1>
+<p style="color: #66b3ff; font-style: italic; margin-top: 10px; font-size: 1.1em;">
+    "Tu rincón Gamer en el barrio... donde tus problemas se disipan y solo te encuentras tú y tu juego favorito"
+</p>
+    </header>
+    <nav>
+        <a href="#galeria">Galería</a>
+        <a href="#juegos">Juegos Disponibles</a>
+        <a href="#torneos">Torneos</a>
+        <a href="#inscripcion">Inscribirse al Torneo</a>
+        <a href="#ranking">Ranking de Clientes</a>
+    </nav>
+
+    <section id="galeria">
+        <h2>Galería</h2>
+        <p>Observa el local desde dentro y la zona de juegos.</p>
+        <!-- Espacio para imágenes -->
+      <div id="imagenes-galeria">
+    <img src="TheLastOfUs.jpg" alt="TheLastOfUs" width="300">
+    <img src="RE2.jpg" alt="Resident Evil 2 Remake" width="300">
+    <img src="Fifa16.jpg" alt="FIFA" width="300">
+    <img src="CALL OF DUTTY.jpg" alt="COD" width="300">
+    <!-- Agrega más imágenes así -->
+</div>
+    <!-- Agrega más imágenes así -->
+</div>
+
+    <section id="juegos">
+        <h2>Juegos Disponibles</h2>
+        <p>Echa un vistazo al catálogo de juegos disponibles por el momento.</p>
+        <!-- Lista de juegos -->
+        <ul id="lista-juegos">
+    <li>FIFA 25</li>
+    <li>GTA VI</li>
+    <li>Call of Duty:BlackOps5</li>
+    <li>TheLastOfUs 1Remastered</li>
+    <li>TheLastOfUs 2</li>
+    <li>Minecraft</li>
+    <li>FarCry6</li>
+</ul>
+
+<!-- SECCIÓN DE RESERVAS CON SMS (REEMPLAZA LA ANTERIOR) -->
+<section id="reserva">
+    <h2>Reservas</h2>
+    <p>Reserva tu turno con 24h de antelación. Pago en persona o por saldo. <strong>No reembolsable</strong>.</p>
+    
+    <div id="formulario-reserva">
+        <label for="fecha-reserva">Fecha:</label>
+        <input type="date" id="fecha-reserva" min="" required>
+        
+        <label for="hora-reserva">Hora (10:00 - 20:00):</label>
+        <input type="time" id="hora-reserva" min="10:00" max="20:00" step="3600" required>
+        
+        <label for="horas-juego">Horas a jugar:</label>
+        <select id="horas-juego" required>
+            <option value="1 hora">1 hora</option>
+            <option value="2 horas">2 horas</option>
+            <option value="3 horas">3 horas</option>
+        </select>
+        
+        <button onclick="enviarSMS()" class="sms-button">
+            📱 Enviar SMS
+        </button>
+    </div>
+</section>
+
+<script>
+    // Configura fecha mínima (hoy + 1 día)
+    document.getElementById('fecha-reserva').min = new Date(new Date().getTime() + 86400000).toISOString().split('T')[0];
+    
+    // Función para SMS
+    function enviarSMS() {
+        const fecha = document.getElementById('fecha-reserva').value;
+        const hora = document.getElementById('hora-reserva').value;
+        const horas = document.getElementById('horas-juego').value;
+        
+        if (!fecha || !hora) {
+            alert('Complete todos los campos.');
+            return;
+        }
+        
+        const fechaFormateada = fecha.split('-').reverse().join('/');
+        const texto = `Reserva NestiGameCenter: ${fechaFormateada} a las ${hora} por ${horas}.`;
+        
+        // Abre la app de mensajes (funciona en móviles)
+        window.open(`sms:5353986282?body=${encodeURIComponent(texto)}`, '_blank');
+    }
+</script>
+
+<style>
+    /* Estilos para el botón SMS */
+    .sms-button {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+        margin-top: 10px;
+        font-size: 16px;
+    }
+    
+    .sms-button:hover {
+        background-color: #45a049;
+    }
+</style>
+</script>
+
+<style>
+    /* Estilos para el formulario de reservas */
+    #formulario-reserva {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+    
+    #formulario-reserva input, 
+    #formulario-reserva select {
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+    
+    .whatsapp-button {
+        background-color: #25D366;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        margin-top: 10px;
+    }
+    
+    .whatsapp-button img {
+        vertical-align: middle;
+        margin-right: 5px;
+    }
+</style>
+
+    <section id="torneos">
+        <h2>Torneos</h2>
+        <div id="lista-torneos">
+            <p>No hay torneos disponibles.</p>
+        </div>
+    </section>
+
+    <section id="inscripcion">
+        <h2>Inscribirse al Torneo</h2>
+        <p>Mira cuándo es el próximo torneo e inscríbete para participar. El pago se realiza en persona 3 días antes.</p>
+        <form id="form-inscripcion">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" required>
+            <button type="button" onclick="inscribirTorneo()">Inscribirse</button>
+        </form>
+    </section>
+
+    <section id="ranking">
+        <h2>Ranking de Clientes</h2>
+        <p>Observa los clientes más fieles y participa para estar entre los mejores 5. Al cliente más fiel se le dará una recompensa.</p>
+        <ol id="top-clientes">
+            <li>#1: Nesti Soto</li>
+            <li>#2: Alex Varona</li>
+            <li>#3: Armando Soler</li>
+            <li>#4: Yinel Stuart</li>
+            <li>#5: Sadiel Soto</li>
+        </ol>
+    </section>
+
+    <script>
+        // Funciones JavaScript (básicas)
+        function validarReserva() {
+            const fecha = document.getElementById('fecha').value;
+            const hora = document.getElementById('hora').value;
+            if (fecha && hora) {
+                document.getElementById('metodo-pago').style.display = 'block';
+            } else {
+                alert('Selecciona fecha y hora válidas.');
+            }
+        }
+
+        function confirmarReserva() {
+            alert('Reserva confirmada. ¡Te esperamos!');
+        }
+
+        function inscribirTorneo() {
+            const nombre = document.getElementById('nombre').value;
+            if (nombre) {
+                alert(`Inscripción recibida, ${nombre}. Paga presencialmente 3 días antes.`);
+            } else {
+                alert('Ingresa tu nombre.');
+            }
+        }
+    </script>
+    <!-- Sección de Información (añade esto antes del </body>) -->
+<section id="informacion" style="background-color: #e6f2ff; padding: 20px; border-radius: 8px; margin: 20px; text-align: center;">
+    <h2 style="color: #0066cc;">Información</h2>
+    <p style="color: #003366; font-weight: bold;">Local: <span style="color: #0066cc;">NestiGameCenter</span> <br> 
+    <small style="color: #333;">(Tu Rincón Gamer del Barrio)</small></p>
+    <p style="color: #003366;">Dirección: Ave 64 entre 29/31 #2904</p>
+    <p style="color: #003366;">Para más información contacte al: <br> 
+    <span style="font-size: 1.2em; color: #0066cc;">53986292</span></p>
+</section>
+</body>
+</html>
